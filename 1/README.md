@@ -174,22 +174,6 @@ Address:  195.7.117.146
 ```
 PS C:\Users\guill> nmap -sn 192.168.1.0/24
 Starting Nmap 7.94 ( https://nmap.org ) at 2023-10-12 21:41 Paris, Madrid (heure dÆÚtÚ)
-Nmap scan report for ... (192.168.1.1)
-Host is up (0.012s latency).
-Nmap scan report for ... (192.168.1.11)
-Host is up (0.17s latency).
-Nmap scan report for ... (192.168.1.19)
-Host is up (0.072s latency).
-Nmap scan report for ... (192.168.1.26)
-Host is up (0.26s latency).
-Nmap scan report for ... (192.168.1.31)
-Host is up (0.0040s latency).
-Nmap scan report for ...e (192.168.1.42)
-Host is up (0.0060s latency).
-Nmap scan report for ... (192.168.1.57)
-Host is up (0.28s latency).
-Nmap scan report for ... (192.168.1.28)
-Host is up.
 Nmap done: 256 IP addresses (8 hosts up) scanned in 16.31 seconds
 ```
 
