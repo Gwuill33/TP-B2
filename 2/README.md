@@ -44,12 +44,6 @@ traceroute to 10.1.2.12 (10.1.2.12), 30 hops max, 60 byte packets
 
 # II. Interlude accès internet
 
-![No internet](./img/no%20internet.jpg)
-
-**On va donner accès internet à tout le monde.** Le routeur aura un accès internet, et permettra à tout le monde d'y accéder : il sera la passerelle par défaut des membres du LAN1 et des membres du LAN2.
-
-**Ajoutez une carte NAT au routeur pour qu'il ait un accès internet.**
-
 ☀️ **Sur `router.tp2`**
 
 ```
