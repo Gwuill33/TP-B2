@@ -133,7 +133,7 @@ subnet 10.1.1.0 netmask 255.255.255.0 {
     # specify the range of lease IP address
     range dynamic-bootp 10.1.1.100 10.1.1.200;
     # specify broadcast address
-    option broadcast-address 10.0.0.255;
+    option broadcast-address 10.1.1.255;
     # specify gateway
     option routers 10.1.1.254;
 }
@@ -231,7 +231,7 @@ LISTEN 0      511          0.0.0.0:80        0.0.0.0:*
 [gwuill@node1-lan1-tp2 ~]$ cat /etc/hosts
 10.1.2.12   web.lan2.tp2
 [gwuill@node1-lan1-tp2 ~]$ curl web.lan2.tp2
-<H1>Franchements les chats...</H1>
+<H1>Franchement les chats...</H1>
 ```
 
 ![That's all folks](./img/cat.jpg)
