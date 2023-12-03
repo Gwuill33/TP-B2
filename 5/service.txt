@@ -1,0 +1,63 @@
+systemctl list-units --type=service
+  UNIT                               LOAD   ACTIVE SUB     DESCRIPTION
+  auditd.service                     loaded active running Security Auditing Service
+  calc@50000.service                 loaded active running meo server 50000
+  calc@50001.service                 loaded active running meo server 50001
+  calc@50002.service                 loaded active running meo server 50002
+  calc@50003.service                 loaded active running meo server 50003
+  calc@50004.service                 loaded active running meo server 50004
+  calc@50005.service                 loaded active running meo server 50005
+  calc@50006.service                 loaded active running meo server 50006
+  calc@50007.service                 loaded active running meo server 50007
+  calc@50008.service                 loaded active running meo server 50008
+  calc@50009.service                 loaded active running meo server 50009
+  calc@50010.service                 loaded active running meo server 50010
+  calc@50011.service                 loaded active running meo server 50011
+  calc@50012.service                 loaded active running meo server 50012
+  calc@50013.service                 loaded active running meo server 50013
+  calc@50014.service                 loaded active running meo server 50014
+  calc@50015.service                 loaded active running meo server 50015
+  calc@50016.service                 loaded active running meo server 50016
+  calc@50017.service                 loaded active running meo server 50017
+  calc@50018.service                 loaded active running meo server 50018
+  calc@50019.service                 loaded active running meo server 50019
+  calc@50020.service                 loaded active running meo server 50020
+  calc@50021.service                 loaded active running meo server 50021
+  calc@50022.service                 loaded active running meo server 50022
+  calc@50023.service                 loaded active running meo server 50023
+  calc@50024.service                 loaded active running meo server 50024
+  calc@50025.service                 loaded active running meo server 50025
+  calc@50026.service                 loaded active running meo server 50026
+  calc@50027.service                 loaded active running meo server 50027
+  calc@50028.service                 loaded active running meo server 50028
+  calc@50029.service                 loaded active running meo server 50029
+  calc@50030.service                 loaded active running meo server 50030
+  crond.service                      loaded active running Command Scheduler
+  dbus-broker.service                loaded active running D-Bus System Message Bus
+  dracut-shutdown.service            loaded active exited  Restore /run/initramfs on shutdown
+  firewalld.service                  loaded active running firewalld - dynamic firewall daemon
+  getty@tty1.service                 loaded active running Getty on tty1
+  kdump.service                      loaded active exited  Crash recovery kernel arming
+  kmod-static-nodes.service          loaded active exited  Create List of Static Device Nodes
+  lvm2-monitor.service               loaded active exited  Monitoring of LVM2 mirrors, snapshots etc. using dmeventd or progress polling
+  NetworkManager-wait-online.service loaded active exited  Network Manager Wait Online
+  NetworkManager.service             loaded active running Network Manager
+  nis-domainname.service             loaded active exited  Read and set NIS domainname from /etc/sysconfig/network
+  rsyslog.service                    loaded active running System Logging Service
+  sshd.service                       loaded active running OpenSSH server daemon
+  systemd-boot-update.service        loaded active exited  Automatic Boot Loader Update
+  systemd-journal-flush.service      loaded active exited  Flush Journal to Persistent Storage
+  systemd-journald.service           loaded active running Journal Service
+  systemd-logind.service             loaded active running User Login Management
+  systemd-network-generator.service  loaded active exited  Generate network units from Kernel command line
+  systemd-random-seed.service        loaded active exited  Load/Save Random Seed
+  systemd-remount-fs.service         loaded active exited  Remount Root and Kernel File Systems
+  systemd-sysctl.service             loaded active exited  Apply Kernel Variables
+  systemd-tmpfiles-setup-dev.service loaded active exited  Create Static Device Nodes in /dev
+  systemd-tmpfiles-setup.service     loaded active exited  Create Volatile Files and Directories
+  systemd-udev-trigger.service       loaded active exited  Coldplug All udev Devices
+  systemd-udevd.service              loaded active running Rule-based Manager for Device Events and Files
+  systemd-update-utmp.service        loaded active exited  Record System Boot/Shutdown in UTMP
+  systemd-user-sessions.service      loaded active exited  Permit User Sessions
+  user-runtime-dir@1000.service      loaded active exited  User Runtime Directory /run/user/1000
+  user@1000.service                  loaded active running User Manager for UID 1000
