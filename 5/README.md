@@ -154,7 +154,6 @@ Supprimer la condition qui vérifie si l'imput est un nombre ou pas
 
 Code server.py :
 Rajoute la condition initialement présent dans client.py pour vérifier si l'imput est un nombre ou pas
-Attention à l'utilisation de eval() qui est dangereux
 [CodeServer](./server.py)
 
 🌞 **Proposer une remédiation système**

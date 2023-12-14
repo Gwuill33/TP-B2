@@ -5,6 +5,7 @@ import socket
 import logging
 import time
 import threading
+import re
 # Cr├®ation d'un objet ArgumentParser
 parser = argparse.ArgumentParser()
 
@@ -12,7 +13,7 @@ parser = argparse.ArgumentParser()
 # "store" ├ºa veut dire qu'on attend un argument ├á -n
 
 # on va stocker l'argument dans une variable
-parser.add_argument("-p", "--port", type=int, default=13337,
+parser.add_argument("-p", "--port", type=int, default=13338,
                     help="Usage: python bs_server.py [OPTION]..."
                     "Run a server"
                     "Mandatory arguments to long options are mandatory for short options too."
@@ -145,3 +146,4 @@ while True:
         break
 
 conn.close()
+
