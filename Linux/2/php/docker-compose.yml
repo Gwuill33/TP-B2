@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  web:
+    image: php:8.0.0-apache
+    volumes:
+      - ./src/:/var/www/html/
+    ports:
+      - 8000:80
+  db:
+    image: mariadb:latest
+    container_name: db
+    restart: unless-stopped
+    ports:
+      - 3306:3306
+    environment:
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 'yes'
+    volumes:
+      - C:\Users\guill\database:/var/lib/mysql
+  
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: unless-stopped
+    ports:
+      - 8080:80
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: root
+    depends_on:
+      - db
