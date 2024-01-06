@@ -123,7 +123,7 @@ Last login: Sun Dec 17 20:04:09 2023 from 10.7.2.100
 logout
 Connection to 10.7.2.0 closed.
 ```
-PS : c'est l'enfer sur Windows... (comme d'hab)
+PS : ça c'est ave du powershell, mais j'ai oublié que j'avais git bash n_n
 
 ## 3. Conf serveur SSH
 
@@ -148,10 +148,17 @@ ListenAddress 10.7.2.11
 
 🌞 **Améliorer le niveau de sécurité du serveur**
 
-- sur toutes les machines
-- mettre en oeuvre au moins 3 configurations additionnelles pour améliorer le niveau de sécurité
-- 3 lignes (au moins) à changer quoi
-- le doc est vieux, mais en dehors des recommendations pour le chiffrement le reste reste très cool : [l'ANSSI avait édité des recommendations pour une conf OpenSSH](https://cyber.gouv.fr/publications/openssh-secure-use-recommendations)
+```
+[gwuill@bastiontp7 ~]$ sudo cat /etc/ssh/sshd_config
+[...]
+#LoginGraceTime 2m
+#PermitRootLogin prohibit-password
+#StrictModes yes
+MaxAuthTries 3
+MaxSessions 1
+[...]
+PasswordAuthentication no
+```
 
 # III. HTTP
 
@@ -268,12 +275,14 @@ server {
 
 🌞 **Prouvez avec un `curl` que vous accédez au site web**
 
-- depuis votre PC
-- avec un `curl -k` car il ne reconnaît pas le certificat là
+```
+$ curl -k web.tp7.b2
+<h1> Site nul </h1>
+```
 
 🌞 **Ajouter le certificat de la CA dans votre navigateur**
 
-- vous pourrez ensuite visitez `https://web.tp7.b2` sans alerte de sécurité, et avec un cadenas vert
-- il faut aussi ajouter l'IP de la machine à votre fichier `hosts` pour qu'elle corresponde au nom `web.tp7.b2`
-
-> *En entreprise, c'est comme ça qu'on fait pour qu'un certificat de CA non-public soit trusted par tout le monde : on dépose le certificat de CA dans le navigateur (et l'OS) de tous les PCs. Evidemment, on utilise une technique de déploiement automatisé aussi dans la vraie vie, on l'ajoute pas à la main partout hehe.*
+```
+$ curl web.tp7.b2
+<h1> Site nul </h1>
+```

@@ -39,12 +39,9 @@ Plus qu'a spam un peu le service web avec ce nom de domaine avec sript et on obt
 
 🌞 **Proposer une version du code qui n'est pas vulnérable**
 
-- les fonctionnalités doivent être maintenues
-  - genre le site doit toujours marcher
-  - dans sa qualité actuelle
-    - on laisse donc le délire de `/admin` joignable qu'en `127.0.0.1`
-    - c'est un choix effectué ça, on le remet pas en question
-- mais l'app web ne doit plus être sensible à l'attaque
+Pour empêcher ce petit trick on peut proposer cette solution :
+
+- Utiliser un resolveur DNS configuré pour ne pas résoudre les noms de domaine qui ne sont pas dans la zone DNS du serveur. On peut utiliser celui de Google ou de Cloudflare.
 
 ## II. Netfilter erreurs courantes
 
@@ -71,8 +68,13 @@ Et bim on a le flag.
 
 🌞 **Proposer un jeu de règles firewall**
 
-- on doit là encore aboutir au même fonctionnalités : pas de régression
-- mais la protection qui a été voulue est vraiment mise en place (limitation du bruteforce)
+Il faut corriger la ligne qui log. 
+Voici une solution :
+
+```sh
+iptables -A INPUT-FINAL -m limit --limit 2/sec --limit-burst 2 -j LOG --log-prefix 'FW_INPUT_DROP '
+iptables -A INPUT-FINAL -j DROP
+```
 
 ## III. ARP Spoofing Ecoute active
 
@@ -126,17 +128,32 @@ On peut y voir plusieurs trames intéressantes avec notament ce qui semble une c
 
 Dedans on y retrouve une partie du flag mais également un mot de passe hashé et un salt.
 
-En effet seul un client initie 
+Avant cela, il faut comprendre ce qu'il se passe entre ces deux machines. Le client est le premier à envoyer une requête au server. Le server va lui envoyer un challenge au client avec un salt. Le client va alors faire des calculs avec le salt et le mot de passe pour obtenir un hash.
+Ce hash a être envoyé au server qui va le comparer avec le hash qu'il a calcuté de son côté. Si les deux hash sont identique, alors le client est authentifié. Cette technique permet de ne pas envoyer le mot de passe en clair ou hashé sur le réseau.
+Mais si on connait la technique de calcul efféctué par le client, on peut alors retrouver le mot de passe.
+
+Sur ce github, un petit gars avec fait un script python qui répond à notre problème : https://github.com/kazkansouh/odd-hash
+
+On suit le petit tuto et on obtient le flag.
 
 🌞 **Proposer une configuration pour empêcher votre attaque**
 
-- empêcher la première partie avec le Poisoning/MITM
-- empêcher la seconde partie (empêcher de retrouver le password de base de données)
-  - regarder du côté des plugins d'authentification de cette app précise
-  - que pensez-vous du mot de passe choisi
+Pour empêcher une attaque de ce type, il faut empêcher le MITM. Pour cela, on peut ajouter à la main les adresses MAC associé à chaque IP dans la table ARP. Cela peut être une solution si il y a peu de machine sur le réseau.
+
+On peut le faire avec la commande suivante : arp -s <IP> <MAC>
+
+La version de la base de donnée du server mysql est également importante. En effet mysql propose une version 8.0 avec un nouveau plugin d'authentification par défaut, le caching_sha2_password. Mais si la version de la base de donnée doit être la 5.7, on peut choisir un autre plugin d'authentification.
+
+Et puis tout simplement, changer le mot de passe pour accéder à la base de donnée en root. Il faut utilisé un générateur de mot de passe beaucoup plus complexe que celui utilisé dans l'épreuve.
 
 ## IV. Bonus : Trafic Global System for Mobile communications
 
-> [**Lien vers l'épreuve root-me.**](https://www.root-me.org/fr/Challenges/Reseau/Trafic-Global-System-for-Mobile-communications)
-
 ⭐ **BONUS : Write-up de l'épreuve**
+
+On nous donne un fichier pcap avec dedans à ce qui semble être une communication entre un téléphone et une antenne relais. Le titre du challenge nous donne un indice sur le protocole utilisé : GSM. On est sur la bonne voie.
+
+A premiere vue, on peut voir qu'il y a uen trame plus longue que les autres. On peut donc supposer que c'est ce qui nous interesse. Dedans il y a une partie data avec 72 bytes. 
+
+Si on se référe à la doc du protocole GSM, on peut voir que la string de 72 bytes et composé de 2 parties : 12 bytes pour l'entête et 60 bytes pour le payload.
+
+Avec ce site : https://www.diafaan.com/sms-tutorials/gsm-modem-tutorial/online-sms-pdu-decoder/ et en enlevant les 12 bytes de l'entête, on peut décoder le payload et on obtient le flag.
