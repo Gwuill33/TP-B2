@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  bot:
+    build: .
+    image: gwuill/chat:latest
+    container_name: chatroom
+    restart: always
+    ports:
+      - 13337:13337
+    volumes:
+      - ./logs/:/app/logs/
+    environment:
+      - CHAT_PORT=13336
+      - MAX_USERS=100
