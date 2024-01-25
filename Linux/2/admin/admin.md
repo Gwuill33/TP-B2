@@ -73,18 +73,7 @@ server {
 
 ## B. HTTPS auto-signé
 
-🌞 **HTTPS** auto-signé
-
-- générez un certificat et une clé auto-signés
-- adaptez la conf de NGINX pour tout servir en HTTPS
-- la clé et le certificat doivent être montés avec des volumes (`-v`)
-- la commande pour générer une clé et un cert auto-signés :
-
-```bash
-openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 -keyout www.supersite.com.key -out www.supersite.com.crt
-```
-
-> Vous pouvez générer deux certificats (un pour chaque sous-domaine) ou un certificat *wildcard* qui est valide pour `*.supersite.com` (genre tous les sous-domaines de `supersite.com`).
+[Certs auto-signés](/Linux/2/php/certs_auto_signe/)
 
 ## C. HTTPS avec une CA maison
 

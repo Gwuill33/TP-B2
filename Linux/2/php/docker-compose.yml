@@ -16,7 +16,7 @@ services:
     environment:
       MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 'yes'
     volumes:
-      - C:\Users\guill\database:/var/lib/mysql
+      - ./seed/:/var/lib/mysql
   
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
@@ -29,4 +29,17 @@ services:
       PMA_PORT: 3306
       PMA_USER: root
     depends_on:
-      - db
+      - db  
+  nginx:
+    image: nginx:latest
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/proxy.conf:/etc/nginx/nginx.d/proxy.conf
+      - ./certs/www.supersite.com.crt:/etc/pki/tls/private/
+      - ./certs/www.supersite.com.key:/etc/pki/tls/certs/
+    depends_on:
+      - web
+      - phpmyadmin
