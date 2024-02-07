@@ -166,6 +166,27 @@ function firewall_config() {
     echo "Firewall configured"
 }
 
+function nginx_config() {
+    echo "Configuring Nginx"
+    cat <<EOF >/etc/nginx/conf.d/app_nulle.conf 
+
+server {
+    server {
+        listen       80;
+        root         /var/www/app_nulle/;
+        ssl_protocols TLSv1.2 TLSv1.3;
+        ssl_ciphers "EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA HIGH !RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS";
+        ssl_prefer_server_ciphers on;
+        limit_conn_zone $binary_remote_addr zone=conn_limit_per_ip:10m;
+        limit_conn conn_limit_per_ip 10;
+        server_tokens off;
+        add_header X-Frame-Options "SAMEORIGIN";        
+        }
+    }
+EOF
+    systemctl restart nginx
+    echo "Nginx configured"
+}
 
 check_chrony
 check_chrony_conf
